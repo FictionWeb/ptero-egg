@@ -1,0 +1,52 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2026-01-28T18:21:24+01:00",
+    "name": "Fiction",
+    "author": "admin@tirito.de",
+    "description": "Pterodactyl egg for Fiction Web Framework",
+    "features": null,
+    "docker_images": {
+        "ghcr.io\/ptero-eggs\/yolks:debian": "ghcr.io\/ptero-eggs\/yolks:debian"
+    },
+    "file_denylist": [],
+    "startup": "bash framework\/fiction.so.sh {{MODE}} {{STARTUP_FILE}}",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"The installation is complete. Go to framework\/pages\/index.shx to change default port to your server's one.\"\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n# Fiction Installation Script\r\n#\r\napt update -y\r\napt install socat git file -y\r\nmkdir -p \/mnt\/server\r\ncd \/mnt\/server\r\ngit clone https:\/\/github.com\/FictionWeb\/framework\r\ncd framework\/modules\r\ngit clone https:\/\/github.com\/FictionWeb\/bashx",
+            "container": "debian:bookworm-slim",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Startup file",
+            "description": "",
+            "env_variable": "STARTUP_FILE",
+            "default_value": "framework\/pages\/index.shx",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:100",
+            "field_type": "text"
+        },
+        {
+            "name": "Mode",
+            "description": "What mode to use for Fiction. Supported options: run, dev, build",
+            "env_variable": "MODE",
+            "default_value": "dev",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20",
+            "field_type": "text"
+        }
+    ]
+}
