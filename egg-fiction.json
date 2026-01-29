@@ -4,7 +4,7 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2026-01-28T18:21:24+01:00",
+    "exported_at": "2026-01-29T15:03:36+01:00",
     "name": "Fiction",
     "author": "admin@tirito.de",
     "description": "Pterodactyl egg for Fiction Web Framework",
@@ -13,10 +13,10 @@
         "ghcr.io\/ptero-eggs\/yolks:debian": "ghcr.io\/ptero-eggs\/yolks:debian"
     },
     "file_denylist": [],
-    "startup": "bash framework\/fiction.so.sh {{MODE}} {{STARTUP_FILE}}",
+    "startup": "[[ {{AUTO_UPDATE}} == 1 ]] && ( cd framework && git pull ); bash framework\/fiction.so.sh {{MODE}} {{STARTUP_FILE}}",
     "config": {
         "files": "{}",
-        "startup": "{\r\n    \"done\": \"The installation is complete. Go to framework\/pages\/index.shx to change default port to your server's one.\"\r\n}",
+        "startup": "{\r\n    \"done\": \"Server address\"\r\n}",
         "logs": "{}",
         "stop": "^C"
     },
@@ -46,6 +46,16 @@
             "user_viewable": true,
             "user_editable": true,
             "rules": "required|string|max:20",
+            "field_type": "text"
+        },
+        {
+            "name": "Auto-update",
+            "description": "Automatically fetch latest code for Fiction",
+            "env_variable": "AUTO_UPDATE",
+            "default_value": "0",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|int|max:1",
             "field_type": "text"
         }
     ]
